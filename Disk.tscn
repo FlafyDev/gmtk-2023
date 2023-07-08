@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm8gdlwnlilsj"]
+
+[ext_resource type="Script" path="res://Disk.gd" id="1_il58v"]
+[ext_resource type="Texture2D" uid="uid://dsbsuo15b8oot" path="res://disk.png" id="1_yn2yl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sgkji"]
+radius = 8.0
+height = 124.0
+
+[node name="Disk" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_il58v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yn2yl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_sgkji")

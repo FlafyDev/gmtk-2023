@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7wlmtkk0mvad"]
+
+[ext_resource type="Script" path="res://Lightning.gd" id="1_3s70u"]
+[ext_resource type="Texture2D" uid="uid://31i2abruof7w" path="res://lightning.png" id="2_lmjb8"]
+
+[node name="Lightning" type="Node2D"]
+script = ExtResource("1_3s70u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_lmjb8")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dehgbftvcqte3"]
+
+[ext_resource type="Script" path="res://lazers.gd" id="1_jx1tc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8sqf"]
+size = Vector2(5, 4000)
+
+[node name="lazers" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_jx1tc")
+
+[node name="Vertical" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d8sqf")
+
+[node name="Horizontal" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_d8sqf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

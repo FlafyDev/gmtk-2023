@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://coud16dafbk6a"]
+
+[ext_resource type="Script" path="res://hero.gd" id="1_0cvrf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ov7oa"]
+radius = 22.0
+height = 88.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fkq3r"]
+size = Vector2(47.9989, 33.3464)
+
+[node name="Hero" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_0cvrf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ov7oa")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(46.9994, 1.3268)
+shape = SubResource("RectangleShape2D_fkq3r")

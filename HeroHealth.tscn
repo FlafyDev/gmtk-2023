@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://blridrb41r6sx"]
+
+[ext_resource type="Texture2D" uid="uid://brnosp76jixll" path="res://heart_full.png" id="1_5yy12"]
+[ext_resource type="Script" path="res://HeroHealth.gd" id="1_xu5qf"]
+
+[sub_resource type="Theme" id="Theme_4cxqy"]
+Label/font_sizes/font_size = 45
+
+[node name="HeroHealth" type="Node2D"]
+script = ExtResource("1_xu5qf")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme = SubResource("Theme_4cxqy")
+theme_type_variation = &"HeaderLarge"
+text = "HP"
+
+[node name="Heart3" type="Sprite2D" parent="."]
+position = Vector2(270, 32)
+texture = ExtResource("1_5yy12")
+
+[node name="Heart2" type="Sprite2D" parent="."]
+position = Vector2(186, 35)
+texture = ExtResource("1_5yy12")
+
+[node name="Heart1" type="Sprite2D" parent="."]
+position = Vector2(112, 34)
+texture = ExtResource("1_5yy12")

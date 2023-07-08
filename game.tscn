@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bysjqioqhqx54"]
+
+[ext_resource type="PackedScene" uid="uid://6s48fiwe8y1g" path="res://character.tscn" id="1_g0erk"]
+[ext_resource type="PackedScene" uid="uid://coud16dafbk6a" path="res://hero.tscn" id="2_ltxua"]
+[ext_resource type="PackedScene" uid="uid://b6g74hn7i1rxe" path="res://ShakeCamera2D.tscn" id="3_v0y88"]
+[ext_resource type="PackedScene" uid="uid://blridrb41r6sx" path="res://HeroHealth.tscn" id="4_vahvv"]
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(1, 0.996855)
+
+[node name="Demon" parent="." instance=ExtResource("1_g0erk")]
+position = Vector2(378, 371)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(172, 242)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+scale = Vector2(1.03246, 1.02129)
+polygon = PackedVector2Array(-167.561, -233.039, -167.561, 399.496, 850.396, 407.328, 863.956, 318.225, -61.0193, 276.121, -57.1451, 164.498, -59.0823, -178.206, 236.329, -179.185, 665.401, -99.8737, 815.528, -194.852, 893.981, -165.477, 895.918, 60.7076, 881.39, 396.557, 949.191, 397.537, 950.159, -235.977)
+
+[node name="Hero" parent="." instance=ExtResource("2_ltxua")]
+position = Vector2(726, 459)
+
+[node name="Camera2D" parent="." instance=ExtResource("3_v0y88")]
+anchor_mode = 0
+
+[node name="HeroHealth" parent="." instance=ExtResource("4_vahvv")]
+position = Vector2(1100, 23)
+scale = Vector2(-1, 1)
