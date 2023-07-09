@@ -7,7 +7,7 @@ var gameScene = preload("res://game.tscn")
 var abilitiesScene = preload("res://Abilities.tscn")
 var currentScene = null
 
-var arena = 5
+var arena = 0
 var arena_types = [
 	"eee", # unused
 	"eem",
@@ -29,14 +29,19 @@ func _ready():
 	# "explosion",
 	# "bounce",
 	# "disk",])
-	goto_level(["disk", "lazers", "slam"])
 	# goto_abilities_selction("eee")
 	# transition_to(gameScene.instantiate())
+
+	transition_to(load("res://Menu.tscn").instantiate())
 	pass
 	# Plays the animation backward to fade in
 
 func transition_to_game():
 	get_tree().change_scene()
+
+func start():
+	goto_level(["disk", "lazers", "slam"])
+
 
 func goto_abilities_selction(type = null):
 	if (arena == 6):
@@ -60,6 +65,16 @@ func goto_level(abilities, demon = null):
 	instance.demon = arena
 	instance.arena = arena
 	transition_to(instance)
+
+var current_playing = null
+
+func play_music(file):
+	var aa = $AudioStreamPlayer
+	if current_playing != file:
+		aa.stream = file
+		aa.play()
+		current_playing = file
+
 
 func transition_to(next_scene) -> void:
 	# Plays the Fade animation and wait until it finishes

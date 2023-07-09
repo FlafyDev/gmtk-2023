@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://tfln34utfrea"]
+
+[ext_resource type="Texture2D" uid="uid://byxtbkadsah8o" path="res://title_screen.png" id="1_j7ay2"]
+[ext_resource type="Script" path="res://Menu.gd" id="1_wbcwd"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_wbcwd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_j7ay2")
+centered = false
+
+[node name="Label" type="RichTextLabel" parent="."]
+offset_left = 52.0
+offset_top = 341.0
+offset_right = 464.0
+offset_bottom = 458.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 0
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[b]Press Enter to Start[/b]"

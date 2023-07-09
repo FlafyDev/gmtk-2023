@@ -39,7 +39,7 @@ var slamAttackScene = preload("res://SlamAttack.tscn")
 var lightningScene = preload("res://Lightning.tscn")
 var lastDirection = 1
 var invincTimer = 0
-var maxHp = 1
+var maxHp = 5
 var hp = maxHp
 var abilityMarginTime = 6
 var abilityTimer = 1
@@ -143,7 +143,7 @@ func damage(amount):
 	if hp <= 0:
 		invincTimer = 1000
 		position.y = 10000
-		get_node("../../Level").heroWin()
+		get_tree().root.get_child(0).currentScene.heroWin()
 	else:
 		invincTimer = 2
 		get_node("../DemonHealth/ProgressBar").value = float(hp) / maxHp * 100.0

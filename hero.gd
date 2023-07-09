@@ -45,7 +45,8 @@ func damage(amount):
 			state = "dead"
 			stateTimeout = 1000
 			visible = true
-			get_node("../../Level").heroLost()
+			get_tree().root.get_child(0).currentScene.heroLost()
+			print("heeee")
 		
 		else:
 			state = "invinc"
@@ -84,12 +85,12 @@ func _process(delta):
 func _physics_process(delta):
 	if state == "idle" && stateTimeout <= 0:
 		visible = true
-		if rng.randf_range(0.0, 1.0) > 0.8:
+		if rng.randf_range(0.0, 1.0) > 0.5:
 			state = "walking"
 			$AnimP.play("running")
 			stateTimeout = rng.randf_range(1.0, 2.0)
 			set_dir(1 if demon.position.x > self.position.x else -1)
-		elif rng.randf_range(0.0, 1.0) > 0.2:
+		elif rng.randf_range(0.0, 1.0) > 0.6:
 			state = "attacking"
 			$AnimP.play("attacking")
 			set_dir(1 if demon.position.x > self.position.x else -1)
@@ -134,4 +135,14 @@ func _physics_process(delta):
 # 		canAttackTimer = 0
 # 		damage(1)
 
+var demon_here = false
 
+
+func _on_area_2d_body_entered(body):
+	demon_here = true
+	pass # Replace with function body.
+
+
+func _on_area_2d_body_exited(body):
+	demon_here = true
+	pass # Replace with function body.

@@ -28,7 +28,7 @@ texture = ExtResource("7_vjjtw")
 metadata/_edit_lock_ = true
 
 [node name="DemonHealth" parent="." instance=ExtResource("9_3hog5")]
-offset_left = 334.0
-offset_top = 440.385
-offset_right = 633.0
-offset_bottom = 528.385
+offset_left = 303.0
+offset_top = 428.0
+offset_right = 602.0
+offset_bottom = 516.0

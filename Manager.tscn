@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgeehiu6iaxki"]
+[gd_scene load_steps=5 format=3 uid="uid://bgeehiu6iaxki"]
 
 [ext_resource type="Script" path="res://Manager.gd" id="1_507ns"]
+[ext_resource type="AudioStream" uid="uid://bn52a1p8a2q74" path="res://music1.wav" id="2_s6dyo"]
 
 [sub_resource type="Animation" id="Animation_2jfgq"]
 resource_name = "Fade"
@@ -48,4 +49,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.8)
+color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_s6dyo")

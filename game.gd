@@ -33,6 +33,10 @@ func _ready():
 	add_child(arenaInstance)
 	move_child(arenaInstance, 0)
 
+  
+	match arena:
+		3: get_tree().root.get_child(0).play_music(load("res://sky.wav"))
+		5: get_tree().root.get_child(0).play_music(load("res://finalbattle.wav"))
 
 
 
@@ -53,6 +57,10 @@ func heroLost():
 	# $Hero.queue_free()
 	$YouLost.visible = true
 	await get_tree().create_timer(2).timeout
+	if (arena == 0):
+		get_tree().root.get_child(0).start()
+	else:
+		get_tree().root.get_child(0).goto_abilities_selction()
 	# get_tree().root.get_child(0).transition_to("res://path/to/Play.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
