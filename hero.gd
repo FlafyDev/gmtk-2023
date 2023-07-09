@@ -37,7 +37,7 @@ func set_dir(new_dir):
 			rotation = PI
 
 func damage(amount):
-	if state != "invinc" && state != "dead":
+	if state != "invinc" && state != "dead" && demon.hp > 0:
 		hp -= amount
 		$AnimP.play("hurt")
 		print(hp)		

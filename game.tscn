@@ -1,10 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://bysjqioqhqx54"]
+[gd_scene load_steps=6 format=3 uid="uid://bysjqioqhqx54"]
 
-[ext_resource type="PackedScene" uid="uid://bmdqivbl1witx" path="res://arenas/Arena5.tscn" id="1_2fwv7"]
 [ext_resource type="Script" path="res://game.gd" id="1_fyvej"]
-[ext_resource type="PackedScene" uid="uid://6s48fiwe8y1g" path="res://character.tscn" id="1_g0erk"]
-[ext_resource type="PackedScene" uid="uid://coud16dafbk6a" path="res://hero.tscn" id="2_ltxua"]
-[ext_resource type="PackedScene" uid="uid://blridrb41r6sx" path="res://HeroHealth.tscn" id="4_vahvv"]
 [ext_resource type="Texture2D" uid="uid://citlui2hbg56o" path="res://youlost.png" id="6_c47xu"]
 [ext_resource type="PackedScene" uid="uid://b6g74hn7i1rxe" path="res://ShakeCamera2D.tscn" id="6_yvmlf"]
 [ext_resource type="Texture2D" uid="uid://bslq6iebe4v1r" path="res://youwin.png" id="7_vjjtw"]
@@ -14,32 +10,22 @@
 script = ExtResource("1_fyvej")
 metadata/_edit_vertical_guides_ = [483.0]
 
-[node name="Arena5" parent="." instance=ExtResource("1_2fwv7")]
-
-[node name="Demon" parent="." instance=ExtResource("1_g0erk")]
-position = Vector2(378, 371)
-
-[node name="Hero" parent="." instance=ExtResource("2_ltxua")]
-position = Vector2(703, 389.224)
-
-[node name="HeroHealth" parent="." instance=ExtResource("4_vahvv")]
-position = Vector2(942, 27.0852)
-scale = Vector2(-1, 1)
-
-[node name="Camera2D" parent="." instance=ExtResource("6_yvmlf")]
-metadata/_edit_lock_ = true
-
 [node name="YouLost" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(480, 100)
-scale = Vector2(-1, 1)
+position = Vector2(480, 196)
+rotation = 3.14159
+scale = Vector2(1, -1)
 texture = ExtResource("6_c47xu")
 
 [node name="YouWin" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(480, 100)
-scale = Vector2(-1, 1)
+position = Vector2(480, 196)
+rotation = 3.14159
+scale = Vector2(1, -1)
 texture = ExtResource("7_vjjtw")
+
+[node name="Camera2D" parent="." instance=ExtResource("6_yvmlf")]
+metadata/_edit_lock_ = true
 
 [node name="DemonHealth" parent="." instance=ExtResource("9_3hog5")]
 offset_left = 334.0

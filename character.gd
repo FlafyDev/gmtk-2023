@@ -6,25 +6,28 @@ const GRAVITY = 6000
 const DAMPING = 0.7
 
 var ability_cycle = [
-	# "lazers",
-	# "roll",
-	# "explosion",
-	# "bounce",
-	# "disk",
+
 ] 
 
 var cycle_index = 0
+var demon = 0
 
 var activated_abilities = [
 	# "axes",
 	# "spikes",
 	# "electric_field",
 	# "slam",
+	
+	# "lazers",
+	# "roll",
+	# "explosion",
+	# "bounce",
+	# "disk",
 ]
 
 @onready var collision = $CollisionShape2D 
 @onready var prelazers = $PreLazers
-@onready var hero = get_node("../Hero")
+var hero = null
 @onready var camera = get_node("../Camera2D")
 
 var lazersScene = preload("res://lazers.tscn")
@@ -36,12 +39,13 @@ var slamAttackScene = preload("res://SlamAttack.tscn")
 var lightningScene = preload("res://Lightning.tscn")
 var lastDirection = 1
 var invincTimer = 0
-var maxHp = 5
+var maxHp = 1
 var hp = maxHp
 var abilityMarginTime = 6
 var abilityTimer = 1
 
 func _ready():
+	print(hero)
 	randomize()
 	hp = maxHp
 	prelazers.visible = false
@@ -49,6 +53,16 @@ func _ready():
 	velocity.y = 1;
 	abilityTimer = abilityMarginTime
 	$RollDust.visible = false
+	var newScale = 1+16.0*demon/96
+	print(newScale)
+	scale = Vector2(newScale, newScale)
+	$Sprite2D.scale = Vector2(1/newScale, 1/newScale)
+	$Sprite2D.texture = load("res://demons/boss_{num}.png".format({"num": demon}))
+	
+	for anability in activated_abilities:
+		if "lazers" == anability or "roll" == anability or "explosion" == anability or "bounce" == anability or "disk" == anability:
+			ability_cycle.append(anability)
+
 	if "spikes" in activated_abilities:
 		regenerate_spikes()
 
@@ -76,7 +90,7 @@ func _physics_process(delta):
 			abilityTimer = abilityMarginTime
 
 
-	if invincTimer > 0:
+	if invincTimer > 0 and hp > 0:
 		invincTimer -= delta
 		visible = int(floor(invincTimer*1000/50)) % 2 == 0
 		if invincTimer <= 0:
@@ -126,11 +140,16 @@ func _physics_process(delta):
 func damage(amount):
 	if invincTimer > 0: return
 	hp -= amount
-	invincTimer = 2
-	get_node("../DemonHealth/ProgressBar").value = float(hp) / maxHp * 100.0
+	if hp <= 0:
+		invincTimer = 1000
+		position.y = 10000
+		get_node("../../Level").heroWin()
+	else:
+		invincTimer = 2
+		get_node("../DemonHealth/ProgressBar").value = float(hp) / maxHp * 100.0
 
-	if "spikes" in activated_abilities:
-		regenerate_spikes()
+		if "spikes" in activated_abilities:
+			regenerate_spikes()
 
 func doAbility(name):
 	match name:
@@ -152,6 +171,7 @@ func explosion():
 	add_child(instance)
 	await get_tree().create_timer(3).timeout # waits for 1 second
 	camera.add_trauma(1)
+	abilityTimer = abilityMarginTime
 
 func axes():
 	var instance = axeScene.instantiate()
@@ -174,6 +194,7 @@ func shoot_disk():
 		get_tree().root.get_child(0).add_child(instance)
 		instance.position = position;
 		await get_tree().create_timer(0.3).timeout # waits for 1 second
+	abilityTimer = abilityMarginTime
 
 var regenerating_spikes = false
 func regenerate_spikes():
@@ -212,6 +233,10 @@ func _bounceTick(delta):
 		if collisioninfo:
 			velocity = velocity.bounce(collisioninfo.get_normal())
 			camera.add_trauma(0.3)
+		if bounceTimer <= 0:
+			abilityTimer = abilityMarginTime
+
+
 
 var activeFieldTime = 0
 
@@ -271,6 +296,7 @@ func _rollingTick(delta):
 
 		velocity.x = 800 * lastDirection
 		if rolling <= 0:
+			abilityTimer = abilityMarginTime
 			$RollDust.visible = false
 
 
@@ -284,6 +310,7 @@ func _onLazerTick(delta):
 			get_tree().root.get_child(0).add_child(instance)
 			instance.position = position;
 			instance.rotation = rotation;
+			abilityTimer = abilityMarginTime
 		else:
 			prelazers.visible = int(floor(sqrt(lazersTimer * 1000))) % 2 == 0
  

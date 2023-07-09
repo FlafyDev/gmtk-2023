@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhw6h8rpsc5e3"]
+
+[ext_resource type="Script" path="res://AbilityIcon.gd" id="1_ijiav"]
+[ext_resource type="Texture2D" uid="uid://w7238dtlkdy4" path="res://abilities/attack_spikes.png" id="2_jyxmh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbfha"]
+size = Vector2(32, 32)
+
+[node name="AbilityIcon" type="Area2D"]
+script = ExtResource("1_ijiav")
+clickable = null
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jyxmh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mbfha")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

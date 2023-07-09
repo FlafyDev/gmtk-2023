@@ -71,14 +71,14 @@ visible = false
 position = Vector2(0, 2)
 scale = Vector2(0.978674, 1)
 amount = 3
-lifetime = 1.2
+lifetime = 0.8
 local_coords = true
 texture = ExtResource("3_87txb")
 gravity = Vector2(0, 0)
 scale_amount_min = 1.4
 scale_amount_max = 1.5
 scale_amount_curve = SubResource("Curve_h3nah")
-color = Color(1, 0.247059, 0.188235, 0.705882)
+color = Color(1, 1, 0.188235, 0.705882)
 
 [node name="ElectricFieldArea" type="Area2D" parent="."]
 visible = false

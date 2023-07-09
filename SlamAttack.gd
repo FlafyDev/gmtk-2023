@@ -19,4 +19,4 @@ func _physics_process(delta):
 	var bodies = get_overlapping_bodies();
 	for body in bodies:
 		if body.is_on_floor():
-			body.velocity.y += body.JUMP_VELOCITY * 1.5
+			body.velocity.y += body.JUMP_VELOCITY * 1
