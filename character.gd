@@ -6,18 +6,20 @@ const GRAVITY = 6000
 const DAMPING = 0.7
 
 var ability_cycle = [
-	"lazers",
-	"roll",
-	"explosion",
-	"bounce",
-	"disk",
+	# "lazers",
+	# "roll",
+	# "explosion",
+	# "bounce",
+	# "disk",
 ] 
 
+var cycle_index = 0
+
 var activated_abilities = [
-	"axes",
+	# "axes",
 	# "spikes",
-	"bite",
-	"slam",
+	# "electric_field",
+	# "slam",
 ]
 
 @onready var collision = $CollisionShape2D 
@@ -36,6 +38,8 @@ var lastDirection = 1
 var invincTimer = 0
 var maxHp = 5
 var hp = maxHp
+var abilityMarginTime = 6
+var abilityTimer = 1
 
 func _ready():
 	randomize()
@@ -43,6 +47,7 @@ func _ready():
 	prelazers.visible = false
 	velocity.x = 10;
 	velocity.y = 1;
+	abilityTimer = abilityMarginTime
 	$RollDust.visible = false
 	if "spikes" in activated_abilities:
 		regenerate_spikes()
@@ -63,13 +68,19 @@ func _physics_process(delta):
 
 	_onElectricFieldTick(delta)
 
+	if abilityTimer > 0 && len(ability_cycle) > 0:
+		abilityTimer -= delta
+		if abilityTimer <= 0:
+			doAbility(ability_cycle[cycle_index % len(ability_cycle)])
+			cycle_index += 1
+			abilityTimer = abilityMarginTime
+
+
 	if invincTimer > 0:
 		invincTimer -= delta
 		visible = int(floor(invincTimer*1000/50)) % 2 == 0
 		if invincTimer <= 0:
 			visible = true
-		
-
 
 	for herobody in $Area2D.get_overlapping_bodies():
 		herobody.damage(1)
@@ -88,18 +99,20 @@ func _physics_process(delta):
 	if is_on_floor():
 		rotation += velocity.x * delta / collision.shape.radius
 
-	if Input.is_action_just_pressed("ability1"):
+	# if Input.is_action_just_pressed("ability1"):
 		# shoot_disk()
-		explosion()
+		# explosion()
 		# regenerate_spikes()
 		# lazers()
 		# roll()
 
 	# Only allow jumping when on the ground
 	if Input.is_action_just_pressed("up") and is_on_floor() && bounceTimer <= 0:
-		axes()
+		if "axes" in activated_abilities:
+			axes()
 		velocity.y = JUMP_SPEED 
-		slamTimer = 0.3
+		if "slam" in activated_abilities:
+			slamTimer = 0.3
 
 	if velocity.x != 0:
 		lastDirection = sign(velocity.x)
@@ -118,6 +131,18 @@ func damage(amount):
 
 	if "spikes" in activated_abilities:
 		regenerate_spikes()
+
+func doAbility(name):
+	match name:
+		"lazers": lazers()
+		"roll": roll()
+		"explosion": explosion()
+		"bounce": bounce()
+		"disk": shoot_disk()
+		"axes": axes()
+		"spikes": 0
+		"electric_field": 0
+		"slam": 0
 
 func roll():
 	prerolling = 2
@@ -191,19 +216,21 @@ func _bounceTick(delta):
 var activeFieldTime = 0
 
 func _onElectricFieldTick(delta):
-	$NaturalElectricField.visible = len($ElectricFieldArea.get_overlapping_bodies()) == 0
-	$ActiveElectricField.visible = !$NaturalElectricField.visible
-	if ($ActiveElectricField.visible):
-		activeFieldTime += delta
-		if activeFieldTime >= 2:
+	if "electric_field" in activated_abilities:
+		$NaturalElectricField.visible = len($ElectricFieldArea.get_overlapping_bodies()) == 0
+		$ActiveElectricField.visible = !$NaturalElectricField.visible
+		if ($ActiveElectricField.visible):
+			activeFieldTime += delta
+			if activeFieldTime >= 2:
+				activeFieldTime = 0
+				hero.damage(1)
+				var instance = lightningScene.instantiate()
+				hero.add_child(instance)
+		else:
 			activeFieldTime = 0
-			hero.damage(1)
-			var instance = lightningScene.instantiate()
-			hero.add_child(instance)
-
-
 	else:
-		activeFieldTime = 0
+		$NaturalElectricField.visible = false
+		$ActiveElectricField.visible = false
 	
 
 var slamTimer = 0;

@@ -103,7 +103,6 @@ color_ramp = SubResource("Gradient_2i853")
 texture = ExtResource("2_x43vg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_nsxj5")
 
