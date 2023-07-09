@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://be27owg3oad1v" path="res://DemonHealth.tscn" id="9_3hog5"]
 
 [node name="Level" type="Node2D"]
-scale = Vector2(1, 0.996855)
 script = ExtResource("1_fyvej")
 metadata/_edit_vertical_guides_ = [483.0]
 
