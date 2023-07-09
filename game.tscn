@@ -1,29 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://bysjqioqhqx54"]
+[gd_scene load_steps=10 format=3 uid="uid://bysjqioqhqx54"]
 
+[ext_resource type="PackedScene" uid="uid://bmdqivbl1witx" path="res://arenas/Arena5.tscn" id="1_2fwv7"]
+[ext_resource type="Script" path="res://game.gd" id="1_fyvej"]
 [ext_resource type="PackedScene" uid="uid://6s48fiwe8y1g" path="res://character.tscn" id="1_g0erk"]
 [ext_resource type="PackedScene" uid="uid://coud16dafbk6a" path="res://hero.tscn" id="2_ltxua"]
-[ext_resource type="PackedScene" uid="uid://b6g74hn7i1rxe" path="res://ShakeCamera2D.tscn" id="3_v0y88"]
 [ext_resource type="PackedScene" uid="uid://blridrb41r6sx" path="res://HeroHealth.tscn" id="4_vahvv"]
+[ext_resource type="Texture2D" uid="uid://citlui2hbg56o" path="res://youlost.png" id="6_c47xu"]
+[ext_resource type="PackedScene" uid="uid://b6g74hn7i1rxe" path="res://ShakeCamera2D.tscn" id="6_yvmlf"]
+[ext_resource type="Texture2D" uid="uid://bslq6iebe4v1r" path="res://youwin.png" id="7_vjjtw"]
+[ext_resource type="PackedScene" uid="uid://be27owg3oad1v" path="res://DemonHealth.tscn" id="9_3hog5"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Level" type="Node2D"]
 scale = Vector2(1, 0.996855)
+script = ExtResource("1_fyvej")
+metadata/_edit_vertical_guides_ = [483.0]
+
+[node name="Arena5" parent="." instance=ExtResource("1_2fwv7")]
 
 [node name="Demon" parent="." instance=ExtResource("1_g0erk")]
 position = Vector2(378, 371)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(172, 242)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-scale = Vector2(1.03246, 1.02129)
-polygon = PackedVector2Array(-167.561, -233.039, -167.561, 399.496, 850.396, 407.328, 863.956, 318.225, -61.0193, 276.121, -57.1451, 164.498, -59.0823, -178.206, 236.329, -179.185, 665.401, -99.8737, 815.528, -194.852, 893.981, -165.477, 895.918, 60.7076, 881.39, 396.557, 949.191, 397.537, 950.159, -235.977)
-
 [node name="Hero" parent="." instance=ExtResource("2_ltxua")]
-position = Vector2(726, 459)
-
-[node name="Camera2D" parent="." instance=ExtResource("3_v0y88")]
-anchor_mode = 0
+position = Vector2(703, 389.224)
 
 [node name="HeroHealth" parent="." instance=ExtResource("4_vahvv")]
-position = Vector2(1100, 23)
+position = Vector2(942, 27.0852)
 scale = Vector2(-1, 1)
+
+[node name="Camera2D" parent="." instance=ExtResource("6_yvmlf")]
+metadata/_edit_lock_ = true
+
+[node name="YouLost" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(480, 100)
+scale = Vector2(-1, 1)
+texture = ExtResource("6_c47xu")
+
+[node name="YouWin" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(480, 100)
+scale = Vector2(-1, 1)
+texture = ExtResource("7_vjjtw")
+
+[node name="DemonHealth" parent="." instance=ExtResource("9_3hog5")]
+offset_left = 334.0
+offset_top = 440.385
+offset_right = 633.0
+offset_bottom = 528.385

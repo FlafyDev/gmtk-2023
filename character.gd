@@ -15,7 +15,7 @@ var ability_cycle = [
 
 var activated_abilities = [
 	"axes",
-	"spikes",
+	# "spikes",
 	"bite",
 	"slam",
 ]
@@ -34,10 +34,12 @@ var slamAttackScene = preload("res://SlamAttack.tscn")
 var lightningScene = preload("res://Lightning.tscn")
 var lastDirection = 1
 var invincTimer = 0
-var hp = 5
+var maxHp = 5
+var hp = maxHp
 
 func _ready():
 	randomize()
+	hp = maxHp
 	prelazers.visible = false
 	velocity.x = 10;
 	velocity.y = 1;
@@ -49,7 +51,6 @@ func _ready():
 
 func _physics_process(delta):
 	if (bounceTimer <= 0):
-		velocity.y += GRAVITY * delta
 		move_and_slide()
 
 	_bounceTick(delta)
@@ -83,6 +84,7 @@ func _physics_process(delta):
 		velocity.x += SPEED * Input.get_axis("left", "right");
 		velocity.x *= pow(1.0 - DAMPING, delta * 10)
 
+
 	if is_on_floor():
 		rotation += velocity.x * delta / collision.shape.radius
 
@@ -105,10 +107,14 @@ func _physics_process(delta):
 
 	$RollDust.rotation = -rotation
 
+	if (bounceTimer <= 0):
+		velocity.y += GRAVITY * delta
+
 func damage(amount):
 	if invincTimer > 0: return
 	hp -= amount
 	invincTimer = 2
+	get_node("../DemonHealth/ProgressBar").value = float(hp) / maxHp * 100.0
 
 	if "spikes" in activated_abilities:
 		regenerate_spikes()
@@ -256,11 +262,11 @@ func _onLazerTick(delta):
  
 func _generate_spikes():
 	var angle = randf_range(0, 2*PI)
-	for x in 13:
+	for x in 9:
 		var instance = spikeScene.instantiate()
 		add_child(instance)
 		move_child(instance, 0)
-		if x == 0 or x == 12:
+		if x == 0 or x == 8:
 			instance.get_child(1).queue_free()
 		instance.rotation = angle + x * PI / 4 / 2
 	

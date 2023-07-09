@@ -13,5 +13,6 @@ func _process(delta):
 
 func _hero_got_hit():
 	for x in range(1,4):
+		print(hero.hp)
 		get_node("Heart"+str(x)).visible = hero.hp >= x
 

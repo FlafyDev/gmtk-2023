@@ -39,7 +39,6 @@ animations = [{
 
 [node name="Demon" type="CharacterBody2D"]
 collision_layer = 4
-floor_snap_length = 5.0
 script = ExtResource("1_f8s51")
 
 [node name="DiskDust" type="CPUParticles2D" parent="."]
@@ -82,6 +81,7 @@ scale_amount_curve = SubResource("Curve_h3nah")
 color = Color(1, 0.247059, 0.188235, 0.705882)
 
 [node name="ElectricFieldArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

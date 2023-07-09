@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbbmx5r4h20l1"]
+
+[ext_resource type="Texture2D" uid="uid://du2xdqx1dxpob" path="res://arenas/arena_2.png" id="1_sn11d"]
+
+[node name="Arena2" type="StaticBody2D"]
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_sn11d")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(481, 1, 482, 238, 443.5, 234.5, 421, 226.5, 385.5, 214, 354.5, 209, 338, 211, 325, 217, 263, 237.5, 229, 223, 216.5, 221.5, 149.5, 236, 131.5, 234.5, 104.5, 224, 81.5, 218.5, 58.5, 222, 17, 239, 0, 239, 0, -1, -32, -1, -30, 281, 538, 281, 525, -32, -28, -32, 0, -1)
