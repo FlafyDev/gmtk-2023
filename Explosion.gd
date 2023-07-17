@@ -1,7 +1,7 @@
 extends Area2D
 
-var circleRadius = 400
-var time = 3.0
+var circleRadius = 350
+var time = 2.0
 var explosionIncreaseTimer = 1.0 # Dummy value
 
 # Called when the node enters the scene tree for the first time.

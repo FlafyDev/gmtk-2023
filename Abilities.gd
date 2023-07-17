@@ -3,6 +3,12 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	match arena:
+		1: get_tree().root.get_child(0).play_music(load("res://unknown.wav"))
+		2: get_tree().root.get_child(0).play_music(load("res://dungeon.wav"))
+		3: get_tree().root.get_child(0).play_music(load("res://sky.wav"))
+		4: get_tree().root.get_child(0).play_music(load("res://prepare.wav"))
+		5: get_tree().root.get_child(0).play_music(load("res://finalbattle.wav"))
 	
 	var arenaInstance = load("res://arenas/Arena{num}.tscn".format({"num": arena})).instantiate()
 	arenaInstance.position = Vector2(0, 0)

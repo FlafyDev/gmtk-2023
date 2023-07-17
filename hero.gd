@@ -90,7 +90,7 @@ func _physics_process(delta):
 			$AnimP.play("running")
 			stateTimeout = rng.randf_range(1.0, 2.0)
 			set_dir(1 if demon.position.x > self.position.x else -1)
-		elif rng.randf_range(0.0, 1.0) > 0.6:
+		elif rng.randf_range(0.0, 1.0) > 0.2:
 			state = "attacking"
 			$AnimP.play("attacking")
 			set_dir(1 if demon.position.x > self.position.x else -1)

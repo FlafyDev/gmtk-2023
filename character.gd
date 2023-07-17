@@ -39,21 +39,22 @@ var slamAttackScene = preload("res://SlamAttack.tscn")
 var lightningScene = preload("res://Lightning.tscn")
 var lastDirection = 1
 var invincTimer = 0
-var maxHp = 5
+var maxHp = 3
 var hp = maxHp
 var abilityMarginTime = 6
 var abilityTimer = 1
+var newScale = 1
 
 func _ready():
-	print(hero)
 	randomize()
+	maxHp = 3 if demon == 0 else 4
 	hp = maxHp
 	prelazers.visible = false
 	velocity.x = 10;
 	velocity.y = 1;
 	abilityTimer = abilityMarginTime
 	$RollDust.visible = false
-	var newScale = 1+16.0*demon/96
+	newScale = 1+16.0*demon/96
 	print(newScale)
 	scale = Vector2(newScale, newScale)
 	$Sprite2D.scale = Vector2(1/newScale, 1/newScale)
@@ -142,14 +143,34 @@ func damage(amount):
 	hp -= amount
 	if hp <= 0:
 		invincTimer = 1000
+
+		if get_tree().root.get_child(0).arena == 5:
+			var friendInstance = load("res://Friend.tscn").instantiate()
+			friendInstance.position = position
+			get_tree().root.get_child(0).currentScene.add_child(friendInstance)
+
+			# TODO
+			# var heroJumpingInstance = load("res://Friend.tscn").instantiate()
+			# heroJumpingInstance.position = position
+			# get_tree().root.get_child(0).currentScene.add_child(heroJumpingInstance)
+
+			# hero.queue_free()
+		else:
+			var deathInstance = load("res://DemonDeath.tscn").instantiate()
+			deathInstance.position = position
+			deathInstance.demon = demon
+			get_tree().root.get_child(0).currentScene.add_child(deathInstance)
+
+
 		position.y = 10000
 		get_tree().root.get_child(0).currentScene.heroWin()
 	else:
 		invincTimer = 2
-		get_node("../DemonHealth/ProgressBar").value = float(hp) / maxHp * 100.0
 
 		if "spikes" in activated_abilities:
 			regenerate_spikes()
+
+	get_node("../DemonHealth/ProgressBar").value = float(hp) / maxHp * 100.0
 
 func doAbility(name):
 	match name:
@@ -168,8 +189,9 @@ func roll():
 
 func explosion():
 	var instance = explosionScene.instantiate()
+	instance.scale = Vector2(1/newScale, 1/newScale)
 	add_child(instance)
-	await get_tree().create_timer(3).timeout # waits for 1 second
+	await get_tree().create_timer(2).timeout # waits for 1 second
 	camera.add_trauma(1)
 	abilityTimer = abilityMarginTime
 

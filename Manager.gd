@@ -43,8 +43,10 @@ func start():
 	goto_level(["disk", "lazers", "slam"])
 
 
+
 func goto_abilities_selction(type = null):
 	if (arena == 6):
+		play_music(load("res://fantasy.wav"))
 		transition_to(load("res://arenas/End.tscn").instantiate())
 		return
 

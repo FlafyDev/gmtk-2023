@@ -34,10 +34,6 @@ func _ready():
 	move_child(arenaInstance, 0)
 
   
-	match arena:
-		3: get_tree().root.get_child(0).play_music(load("res://sky.wav"))
-		5: get_tree().root.get_child(0).play_music(load("res://finalbattle.wav"))
-
 
 
 	# var heroInstance = demonScene.instantiate()
